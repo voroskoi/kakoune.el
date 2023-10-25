@@ -151,14 +151,14 @@ but I like this behavior better."
   (interactive "p")
   (end-of-line)
   (dotimes (_ count)
-    (electric-newline-and-maybe-indent)))
+    (newline-and-indent)))
 
 (defun kakoune-O (count)
   "Open COUNT lines above the cursor and go into insert mode."
   (interactive "p")
-  (beginning-of-line)
+  ;; (beginning-of-line)
   (dotimes (_ count)
-    (newline)
+    (newline-and-indent)
     (forward-line -1)))
 
 (defun kakoune-join ()
