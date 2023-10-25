@@ -80,6 +80,29 @@ Ignores CHAR at point."
       (kakoune-select-up-to-char count kakoune-last-char-selected-to)
     (kakoune-select-to-char count kakoune-last-char-selected-to)))
 
+(defun helix-x (count)
+  (interactive "p")
+  (if (use-region-p)
+      ;; there is an active region
+      (if (and (eolp)
+	       (eq (mark) (region-beginning)))
+	  ;; full-line selection
+	  (progn
+	    (forward-line count))
+	;; partial-line-selection
+	(progn
+	  (beginning-of-visual-line)
+	  (set-mark (point))
+	  ;; decrement count ad it default to 1
+	  (forward-line (1- count))))
+    ;; no active region
+    (progn
+      (beginning-of-visual-line)
+      (set-mark (point))
+      ;; decrement count ad it default to 1
+      (forward-line (1- count))))
+  (end-of-visual-line))
+
 (defun kakoune-x (count)
   "Select COUNT lines from the current line.
 
