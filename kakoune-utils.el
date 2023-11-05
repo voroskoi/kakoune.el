@@ -80,6 +80,7 @@ Ignores CHAR at point."
       (kakoune-select-up-to-char count kakoune-last-char-selected-to)
     (kakoune-select-to-char count kakoune-last-char-selected-to)))
 
+;; FIXME: this one fails on wrapped lines :-(
 (defun helix-x (count)
   (interactive "p")
   (if (use-region-p)
@@ -179,7 +180,7 @@ but I like this behavior better."
 (defun kakoune-O (count)
   "Open COUNT lines above the cursor and go into insert mode."
   (interactive "p")
-  ;; (beginning-of-line)
+  (beginning-of-line)
   (dotimes (_ count)
     (newline-and-indent)
     (forward-line -1)))
